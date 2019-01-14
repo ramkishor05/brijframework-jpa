@@ -41,6 +41,15 @@ public class InstanceUtil {
 		}
 		return fields;
 	}
+	
+	public static Object getField(Object object, String field) {
+		try {
+			return getField(object,object.getClass().getDeclaredField(field));
+		} catch (NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public static Object getField(Object object, Field field) {
 		try {
@@ -50,5 +59,14 @@ public class InstanceUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void setField(Object object, Field field,Object val) {
+		try {
+			field.setAccessible(true);
+			field.set(object,val);
+		} catch (IllegalArgumentException | SecurityException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 }

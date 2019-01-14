@@ -1,36 +1,34 @@
 package org.brijframework.jpa.persist;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import org.brijframework.jpa.EntityGroup;
 import org.brijframework.jpa.EntityModel;
-import org.brijframework.jpa.builder.EntityModelBuilder;
 import org.brijframework.jpa.util.InstanceUtil;
 
 public abstract class EntityModelPersist {
 
-	public void laodEntities() {
-		EntityModelBuilder builder=this.getEntityModelBuilder();
-		if(builder==null) {
+	public void laodEntities(Collection<EntityGroup> groups) {
+		if(groups==null) {
 			return ;
 		}
-		this.createEntityManager();
 		System.err.println("EntityManager laoding entities ...");
-		builder.getCache().values().forEach(entity->{
-			if(!this.isConstains(entity.getEntityModel(),entity.getEntityObject())) {
-				this.performedAction(entity.getEntityObject());
+		this.init();
+		groups.forEach(group->{
+			if(!isConstains(group.getEntityModel(), group.getEntityObject())) {
+				this.process(group.getEntityModel(), group.getEntityObject());
 			}
 		});
+		this.finish();
 		System.err.println("EntityManager laoded ");
 	}
-	public abstract void createEntityManager();
-	
-	public abstract EntityModelBuilder getEntityModelBuilder();
-	
 	public abstract boolean isConstains(EntityModel entityModel,Object object);
-	
-	public abstract void performedAction(Object object);
+	public abstract void finish();
+	public abstract void init();
+	public abstract void process(EntityModel entityModel,Object object);
 }
 
 class EntityModelComparator implements Comparator<Object>{

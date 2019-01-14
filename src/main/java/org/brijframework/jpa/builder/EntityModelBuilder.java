@@ -3,9 +3,8 @@ package org.brijframework.jpa.builder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EntityModelBuilder {
 
 	private final static String REF = "@ref";
+	private final static String CTD="@currentDate";
 
 	private LinkedHashMap<String, EntityGroup> cache = new LinkedHashMap<>();
 
@@ -47,6 +47,9 @@ public class EntityModelBuilder {
 				if (val == null) {
 					InstanceUtil.setField(entityObject, key, val);
 				} else {
+					if(CTD.equalsIgnoreCase(val.toString())) {
+						val=new Date();
+					}
 					if (!(val instanceof Map) && !(val instanceof Collection)) {
 						InstanceUtil.setField(entityObject, key, val);
 					}
@@ -82,22 +85,4 @@ public class EntityModelBuilder {
 	}
 }
 
-class EntryComparator implements Comparator<Map.Entry<String,EntityGroup>>{
 
-	@Override
-	public int compare(Map.Entry<String,EntityGroup> o1, Map.Entry<String,EntityGroup> o2) {
-		List<Field> fields1=InstanceUtil.getAllField(o1.getValue().getEntityObject().getClass());
-		for(Field field1: fields1) {
-			if(o2.getClass().isAssignableFrom(field1.getType())) {
-				return 1;
-			}
-		}
-		List<Field> fields2=InstanceUtil.getAllField(o2.getValue().getEntityObject().getClass());
-		for(Field field2: fields2) {
-			if(o1.getClass().isAssignableFrom(field2.getType())) {
-				return -1;
-			}
-		}
-		return 0;
-	}
-}

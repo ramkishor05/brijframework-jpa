@@ -21,4 +21,12 @@ public class EntityGroup {
 	public void setEntityObject(Object entityObject) {
 		this.entityObject = entityObject;
 	}
+	
+	@Override
+	public String toString() {
+		if(entityModel!=null) {
+			return entityModel.getEntity();
+		}
+		return super.toString();
+	}
 }
