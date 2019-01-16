@@ -1,8 +1,8 @@
-package org.brijframework.jpa;
+package org.brijframework.jpa.data;
 
 import java.util.Map;
 
-public class EntityModel {
+public class EntityData {
 
 	private String id;
 	private String entity;
@@ -12,6 +12,7 @@ public class EntityModel {
 	public String getId() {
 		return id;
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.brijframework.jpa.EntityGroup;
-import org.brijframework.jpa.util.InstanceUtil;
+import org.brijframework.util.reflect.FieldUtil;
 
 public class EntryComparator implements Comparator<Map.Entry<String,EntityGroup>>{
 
@@ -21,7 +21,7 @@ public class EntryComparator implements Comparator<Map.Entry<String,EntityGroup>
 		if(o1.getValue().getEntityObject().getClass().getName().equals(o2.getValue().getEntityObject().getClass().getName())) {
 			return 0;
 		}
-		List<Field> fields1=InstanceUtil.getAllField(o1.getValue().getEntityObject().getClass());
+		List<Field> fields1=FieldUtil.getAllField(o1.getValue().getEntityObject().getClass());
 		for(Field field1: fields1) {
 			if(field1.getType().isAssignableFrom(o2.getValue().getEntityObject().getClass())) {
 				return 1;

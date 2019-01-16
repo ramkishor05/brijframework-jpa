@@ -1,17 +1,32 @@
 package org.brijframework.jpa;
 
+import org.brijframework.jpa.data.EntityData;
+import org.brijframework.jpa.model.EntityModel;
+
 public class EntityGroup {
 
-	private EntityModel entityModel;
+	private String id;
+	
+	private EntityData entityData;
 	
 	private Object entityObject;
+	
+	private EntityModel entityModel;
 
-	public EntityModel getEntityModel() {
-		return entityModel;
+	public String getId() {
+		return id;
 	}
 
-	public void setEntityModel(EntityModel entityModel) {
-		this.entityModel = entityModel;
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public EntityData getEntityData() {
+		return entityData;
+	}
+
+	public void setEntityData(EntityData entityData) {
+		this.entityData = entityData;
 	}
 
 	public Object getEntityObject() {
@@ -22,10 +37,18 @@ public class EntityGroup {
 		this.entityObject = entityObject;
 	}
 	
+	public void setEntityModel(EntityModel entityModel) {
+		this.entityModel = entityModel;
+	}
+	
+	public EntityModel getEntityModel() {
+		return entityModel;
+	}
+	
 	@Override
 	public String toString() {
-		if(entityModel!=null) {
-			return entityModel.getEntity();
+		if(entityData!=null) {
+			return entityData.getEntity();
 		}
 		return super.toString();
 	}
