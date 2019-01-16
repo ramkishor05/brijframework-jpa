@@ -1,0 +1,39 @@
+[
+	{
+		"id": "Team_1",
+		"entity": "com.programmer.gate.model.Team",
+		"unique": "id = 1",
+		"properties": {
+			"name": "Barcelona",
+			"id": 1
+		}
+	},
+	{
+		"id": "Player_1",
+		"entity": "com.programmer.gate.model.Player",
+		"unique": "id = 1",
+		"properties": {
+			"id": 1,
+			"team": {
+			  "@ref" : "Team_1"
+			},
+			"name": "Lionel Messi",
+			"num": 10,
+			"position": "Forward"
+		}
+	},
+	{
+		"id": "Player_2",
+		"entity": "com.programmer.gate.model.Player",
+		"unique": "id = 2",
+		"properties": {
+			"id": 2,
+			"team": {
+			  "@ref" : "Team_1"
+			},
+			"name": "Andreas Inniesta",
+			"num": 8,
+			"position": "Midfielder"
+		}
+	}
+]
