@@ -3,27 +3,20 @@ package org.brijframework.jpa.builder;
 import java.lang.reflect.Field;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
-import org.brijframework.jpa.EntityGroup;
+import org.brijframework.jpa.group.EntityDataGroup;
+import org.brijframework.support.enums.Access;
 import org.brijframework.util.reflect.FieldUtil;
 
-public class EntryComparator implements Comparator<Map.Entry<String,EntityGroup>>{
+public class EntryComparator implements Comparator<EntityDataGroup>{
 
 	@Override
-	public int compare(Map.Entry<String,EntityGroup> o1, Map.Entry<String,EntityGroup> o2) {
-		if(o2.getValue().getEntityObject()==null) {
-			return -1;
-		}
-		if(o1.getValue().getEntityObject()==null) {
-			return 1;
-		}
-		if(o1.getValue().getEntityObject().getClass().getName().equals(o2.getValue().getEntityObject().getClass().getName())) {
-			return 0;
-		}
-		List<Field> fields1=FieldUtil.getAllField(o1.getValue().getEntityObject().getClass());
+	public int compare(EntityDataGroup o1, EntityDataGroup o2) {
+		Object entity1=o1.getEntityObject();
+		Object entity2=o2.getEntityObject();
+		List<Field> fields1=FieldUtil.getAllField(entity1.getClass(),Access.PRIVATE);
 		for(Field field1: fields1) {
-			if(field1.getType().isAssignableFrom(o2.getValue().getEntityObject().getClass())) {
+			if(entity2.getClass().isAssignableFrom(field1.getType())) {
 				return 1;
 			}
 		}

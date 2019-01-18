@@ -1,4 +1,4 @@
-package org.brijframework.jpa.data;
+package org.brijframework.jpa.model;
 
 import java.util.Map;
 

@@ -2,8 +2,8 @@ package org.brijframework.jpa.factories;
 
 import java.util.LinkedHashMap;
 
-import org.brijframework.jpa.EntityGroup;
 import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.model.EntityModel;
 
 public class EntityModelFactory {
@@ -13,6 +13,8 @@ public class EntityModelFactory {
 	private LinkedHashMap<String, EntityModel> cache = new LinkedHashMap<>();
 	
 	private EntityModelContainer container ;
+
+	private EntityContext entityContext;
 
 	public static EntityModelFactory getFactory() {
 		if (factory == null) {
@@ -45,12 +47,8 @@ public class EntityModelFactory {
 		if(getContainer()==null) {
 			return;
 		}
-		EntityGroup group =getContainer().find(model.getId());
-		if(group==null) {
-			group=new EntityGroup();
-			group.setId(model.getId());
-			group.setEntityModel(model);
-			getContainer().register(group);
+		if(getContainer().find(model.getId())==null) {
+			getContainer().register(model);
 		}
 	}
 	
@@ -58,14 +56,18 @@ public class EntityModelFactory {
 		if(getContainer()==null) {
 			return null;
 		}
-		EntityGroup group =getContainer().find(model);
-		if(group!=null) {
-			return group.getEntityModel();
-		}
-		return null;
+		return getContainer().find(model);
 	}
 	
 	public LinkedHashMap<String, EntityModel> getCache() {
 		return cache;
+	}
+
+	public void setContext(EntityContext entityContext) {
+		this.entityContext=entityContext;
+	}
+	
+	public EntityContext getContext() {
+		return entityContext;
 	}
 }

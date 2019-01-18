@@ -2,11 +2,13 @@ package org.brijframework.jpa.container;
 
 import java.util.LinkedHashMap;
 
-import org.brijframework.jpa.EntityGroup;
+import org.brijframework.jpa.context.EntityContext;
+import org.brijframework.jpa.model.EntityModel;
 
 public class EntityModelContainer {
-
-	private LinkedHashMap<String, EntityGroup> cache = new LinkedHashMap<>();
+	private EntityContext  context;
+	
+	private LinkedHashMap<String, EntityModel> cache = new LinkedHashMap<>();
 	
 	private static EntityModelContainer container;
 	
@@ -17,26 +19,30 @@ public class EntityModelContainer {
 		return container;
 	}
 
-	public LinkedHashMap<String, EntityGroup> getCache() {
+	public LinkedHashMap<String, EntityModel> getCache() {
 		return cache;
 	}
 	
-	public void register(EntityGroup model) {
+	public void register(EntityModel model) {
 		getCache().put(model.getId(), model);
 	}
 
-	public EntityGroup find(String model) {
+	public EntityModel find(String model) {
 		return getCache().get(model);
 	}
 
 	public void build() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void procced() {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	public void setContext(EntityContext context) {
+		this.context = context;
+	}
+	
+	public EntityContext getContext() {
+		return context;
 	}
 	
 }

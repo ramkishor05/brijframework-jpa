@@ -9,16 +9,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.brijframework.jpa.EntityGroup;
 import org.brijframework.jpa.builder.EntryComparator;
-import org.brijframework.jpa.persist.EntityProcessor;
+import org.brijframework.jpa.context.EntityContext;
+import org.brijframework.jpa.group.EntityDataGroup;
+import org.brijframework.jpa.processor.EntityProcessor;
 import org.brijframework.jpa.util.EntityConstants;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 
 public class EntityDataContainer {
 
-	private LinkedHashMap<String, EntityGroup> cache = new LinkedHashMap<>();
+	private EntityContext  context;
+	
+	private LinkedHashMap<String, EntityDataGroup> cache = new LinkedHashMap<>();
 	
 	private static EntityDataContainer container;
 	
@@ -29,15 +32,23 @@ public class EntityDataContainer {
 		return container;
 	}
 	
-	public LinkedHashMap<String, EntityGroup> getCache() {
+	public void setContext(EntityContext context) {
+		this.context = context;
+	}
+	
+	public EntityContext getContext() {
+		return context;
+	}
+	
+	public LinkedHashMap<String, EntityDataGroup> getCache() {
 		return cache;
 	}
 	
-	public void register(EntityGroup model) {
+	public void register(EntityDataGroup model) {
 		getCache().put(model.getId(), model);
 	}
 
-	public EntityGroup find(String model) {
+	public EntityDataGroup find(String model) {
 		return getCache().get(model);
 	}
 	
@@ -77,7 +88,7 @@ public class EntityDataContainer {
 	}
 
 	public EntityDataContainer procced() {
-		String adpter=System.getProperty(EntityConstants.IMPORT_ADPTER);
+		String adpter=getContext().getProperty(EntityConstants.IMPORT_ADPTER);
 		if(adpter==null || adpter.isEmpty()) {
 			System.err.println("Please config "+EntityConstants.IMPORT_ADPTER);
 			return this;
@@ -87,22 +98,20 @@ public class EntityDataContainer {
 			System.err.println("Invalid config "+EntityConstants.IMPORT_ADPTER);
 			return this;
 		}
-		Collection<EntityGroup> values=getCache().entrySet().stream().sorted(new EntryComparator()).collect(
-	            Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-	                LinkedHashMap::new)).values();
+		Collection<EntityDataGroup> values=getCache().values().stream().sorted(new EntryComparator()).collect(Collectors.toList());
 		this.laodEntities(processor,values);
 		return this;
 	}
 	
-	public void laodEntities(EntityProcessor processor,Collection<EntityGroup> groups) {
+	public void laodEntities(EntityProcessor processor,Collection<EntityDataGroup> groups) {
 		if (groups == null) {
 			return;
 		}
 		System.err.println("EntityManager entities laoding...");
 		processor.init();
 		groups.forEach(group -> {
-			if (!processor.constains(group.getEntityData(), group.getEntityObject())) {
-				processor.process(group.getEntityData(), group.getEntityObject());
+			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
+				processor.process(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
 			}
 		});
 		processor.finish();

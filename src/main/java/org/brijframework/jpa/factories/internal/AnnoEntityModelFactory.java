@@ -1,10 +1,11 @@
-package org.brijframework.jpa.factories;
+package org.brijframework.jpa.factories.internal;
 
 import java.lang.annotation.Annotation;
 
+import org.brijframework.jpa.factories.EntityModelFactory;
+import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.util.EntityConstants;
 import org.brijframework.jpa.util.EntityMapper;
-import org.brijframework.util.formatter.PrintUtil;
 import org.brijframework.util.reflect.ClassUtil;
 import org.brijframework.util.reflect.PackUtil;
 
@@ -35,7 +36,8 @@ public class AnnoEntityModelFactory extends EntityModelFactory {
 	}
 
 	private void register(Class<?> cls,Class<? extends Annotation> entity) {
-		System.out.println(PrintUtil.getObjectInfo(EntityMapper.getEntityModel(cls, entity)));
+		EntityModel entityModel=EntityMapper.getEntityModel(cls, entity);
+		this.register(entityModel); 
 	}
 
 }

@@ -2,9 +2,10 @@ package org.brijframework.jpa.factories;
 
 import java.util.LinkedHashMap;
 
-import org.brijframework.jpa.EntityGroup;
 import org.brijframework.jpa.container.EntityDataContainer;
-import org.brijframework.jpa.data.EntityData;
+import org.brijframework.jpa.context.EntityContext;
+import org.brijframework.jpa.group.EntityDataGroup;
+import org.brijframework.jpa.model.EntityData;
 
 public class EntityDataFactory {
 
@@ -13,6 +14,8 @@ public class EntityDataFactory {
 	private static EntityDataFactory factory;
 	
 	private EntityDataContainer container;
+
+	private EntityContext entityContext;
 
 	public static EntityDataFactory getFactory() {
 		if (factory == null) {
@@ -30,7 +33,7 @@ public class EntityDataFactory {
 		if(getCache().containsKey(model)) {
 			return getCache().get(model);
 		}
-		return loadInContainer(model);
+		return findInContainer(model);
 	}
 	
 	public EntityDataContainer getContainer() {
@@ -39,6 +42,14 @@ public class EntityDataFactory {
 
 	public void setContainer(EntityDataContainer container) {
 		this.container = container;
+	}
+
+	public void setContext(EntityContext entityContext) {
+		this.entityContext=entityContext;
+	}
+	
+	public EntityContext getContext() {
+		return entityContext;
 	}
 
 	public LinkedHashMap<String, EntityData> getCache() {
@@ -53,20 +64,20 @@ public class EntityDataFactory {
 		if(getContainer()==null) {
 			return;
 		}
-		EntityGroup group =getContainer().find(model.getId());
+		EntityDataGroup group =getContainer().find(model.getId());
 		if(group==null) {
-			group=new EntityGroup();
+			group=new EntityDataGroup();
 			group.setId(model.getId());
 			group.setEntityData(model);
 			getContainer().register(group);
 		}
 	}
 	
-	public EntityData loadInContainer(String model) {
+	public EntityData findInContainer(String model) {
 		if(getContainer()==null) {
 			return null;
 		}
-		EntityGroup group =getContainer().find(model);
+		EntityDataGroup group =getContainer().find(model);
 		if(group!=null) {
 			return group.getEntityData();
 		}

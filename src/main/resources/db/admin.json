@@ -13,7 +13,7 @@
 		"entity": "com.programmer.gate.model.Player",
 		"unique": "id = 3",
 		"properties": {
-			"id": 1,
+			"id": 3,
 			"team": {
 			  "@ref" : "Team_2"
 			},
@@ -27,9 +27,9 @@
 		"entity": "com.programmer.gate.model.Player",
 		"unique": "id = 4",
 		"properties": {
-			"id": 2,
+			"id": 4,
 			"team": {
-			  "@ref" : "Team_1"
+			  "@ref" : "Team_2"
 			},
 			"name": "Andreas Inniesta",
 			"num": 8,

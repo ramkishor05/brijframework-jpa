@@ -1,9 +1,9 @@
-package org.brijframework.jpa;
+package org.brijframework.jpa.group;
 
-import org.brijframework.jpa.data.EntityData;
+import org.brijframework.jpa.model.EntityData;
 import org.brijframework.jpa.model.EntityModel;
 
-public class EntityGroup {
+public class EntityDataGroup {
 
 	private String id;
 	
