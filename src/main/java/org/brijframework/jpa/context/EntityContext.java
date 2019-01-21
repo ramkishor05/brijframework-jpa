@@ -52,6 +52,14 @@ public class EntityContext {
 		properties.setProperty(key, value);
 	}
 	
+	public void setObject(String key, Object value) {
+		properties.put(key, value);
+	}
+	
+	public Object getObject(String key) {
+		return properties.get(key);
+	}
+	
 	public String getProperty(String key) {
 		return properties.getProperty(key);
 	}

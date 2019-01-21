@@ -24,14 +24,14 @@ public class AnnoEntityModelFactory extends EntityModelFactory {
 	@Override
 	public AnnoEntityModelFactory loadFactory() {
 		super.loadFactory();
-		if(ClassUtil.isClass(EntityConstants.JPA_ENTITY)) {
+		/*if(ClassUtil.isClass(EntityConstants.JPA_ENTITY)) {
 			Class<? extends Annotation> entity=(Class<? extends Annotation>) ClassUtil.getClass(EntityConstants.JPA_ENTITY);
 			for(Class<?> cls:PackUtil.getProjectClasses()) {
 				if(cls.isAnnotationPresent(entity)) {
 					this.register(cls,entity);
 				}
 			}
-		}
+		}*/
 		return this;
 	}
 

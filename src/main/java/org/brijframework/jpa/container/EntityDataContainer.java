@@ -88,14 +88,17 @@ public class EntityDataContainer {
 	}
 
 	public EntityDataContainer procced() {
-		String adpter=getContext().getProperty(EntityConstants.IMPORT_ADPTER);
-		if(adpter==null || adpter.isEmpty()) {
-			System.err.println("Please config "+EntityConstants.IMPORT_ADPTER);
-			return this;
-		}
-		EntityProcessor processor=InstanceUtil.getInstance(adpter);
+		EntityProcessor processor =(EntityProcessor) getContext().getObject(EntityConstants.IMPORT_ADPTER_OBJECT);
 		if(processor==null) {
-			System.err.println("Invalid config "+EntityConstants.IMPORT_ADPTER);
+			String adpter_class=getContext().getProperty(EntityConstants.IMPORT_ADPTER_CLASS);
+			if(adpter_class==null || adpter_class.isEmpty()) {
+				System.err.println("Please config "+EntityConstants.IMPORT_ADPTER_CLASS);
+				return this;
+			}
+			processor=InstanceUtil.getInstance(adpter_class);
+		}
+		if(processor==null) {
+			System.err.println("Invalid config "+EntityConstants.IMPORT_ADPTER_CLASS);
 			return this;
 		}
 		Collection<EntityDataGroup> values=getCache().values().stream().sorted(new EntryComparator()).collect(Collectors.toList());
