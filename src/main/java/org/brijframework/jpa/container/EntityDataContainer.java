@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.brijframework.jpa.builder.EntryComparator;
+import org.brijframework.jpa.builder.RelationComparator;
+import org.brijframework.jpa.builder.SequenceComparator;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.group.EntityDataGroup;
 import org.brijframework.jpa.processor.EntityProcessor;
@@ -101,7 +101,7 @@ public class EntityDataContainer {
 			System.err.println("Invalid config "+EntityConstants.IMPORT_ADPTER_CLASS);
 			return this;
 		}
-		Collection<EntityDataGroup> values=getCache().values().stream().sorted(new EntryComparator()).collect(Collectors.toList());
+		Collection<EntityDataGroup> values=getCache().values();
 		this.laodEntities(processor,values);
 		return this;
 	}
@@ -112,9 +112,18 @@ public class EntityDataContainer {
 		}
 		System.err.println("EntityManager entities laoding...");
 		processor.init();
-		groups.forEach(group -> {
+		System.err.println("Sequence loading .....");
+		groups.stream().filter(group->group.getEntityData().getSequence()!=null).sorted(new SequenceComparator()).forEach(group -> {
 			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
-				processor.process(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+				processor.persist(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+			}else {
+				processor.update(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+			}
+		});
+		System.err.println("Relational loading .....");
+		groups.stream().filter(group->group.getEntityData().getSequence()==null).sorted(new RelationComparator()).forEach(group -> {
+			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
+				processor.persist(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
 			}
 		});
 		processor.finish();

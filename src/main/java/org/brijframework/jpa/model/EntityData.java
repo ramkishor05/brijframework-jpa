@@ -7,6 +7,7 @@ public class EntityData {
 	private String id;
 	private String entity;
 	private String unique;
+	private Integer sequence;
 	private Map<String,Object> properties;
 	
 	public String getId() {
@@ -28,10 +29,19 @@ public class EntityData {
 	public void setUnique(String unique) {
 		this.unique = unique;
 	}
+	
 	public Map<String, Object> getProperties() {
 		return properties;
 	}
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
+	}
+
+	public Integer getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
 	}
 }

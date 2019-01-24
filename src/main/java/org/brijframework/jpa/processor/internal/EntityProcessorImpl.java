@@ -18,13 +18,25 @@ public class EntityProcessorImpl implements EntityProcessor{
 	}
 	
 	@Override
-	public boolean process(EntityData entityData, EntityModel entityModel, Object entity) {
-		System.out.println("EntityModel :"+PrintUtil.getObjectInfo(entity));
+	public boolean persist(EntityData entityData, EntityModel entityModel, Object entity) {
+		System.out.println("PersistModel :"+PrintUtil.getObjectInfo(entity));
 		return false;
 	}
 	
 	@Override
 	public boolean finish() {
+		return false;
+	}
+
+	@Override
+	public boolean update(EntityData entityData, EntityModel entityModel, Object entity) {
+		System.out.println("UpdateModel :"+PrintUtil.getObjectInfo(entity));
+		return false;
+	}
+
+	@Override
+	public boolean delete(EntityData entityData, EntityModel entityModel, Object entity) {
+		System.out.println("DeleteModel :"+PrintUtil.getObjectInfo(entity));
 		return false;
 	}
 

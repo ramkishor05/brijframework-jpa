@@ -7,9 +7,13 @@ public interface EntityProcessor {
 
 	public abstract boolean constains(EntityData entityData, EntityModel entityModel, Object object);
 
-	public abstract boolean finish();
-
 	public abstract boolean init();
 
-	public abstract boolean process(EntityData entityData, EntityModel entityModel, Object object);
+	public abstract boolean persist(EntityData entityData, EntityModel entityModel, Object object);
+	
+	public abstract boolean update(EntityData entityData, EntityModel entityModel, Object object);
+	
+	public abstract boolean delete(EntityData entityData, EntityModel entityModel, Object object);
+
+	public abstract boolean finish();
 }
