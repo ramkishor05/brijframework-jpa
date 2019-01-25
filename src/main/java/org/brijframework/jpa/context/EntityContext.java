@@ -1,7 +1,9 @@
 package org.brijframework.jpa.context;
 
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
+import org.brijframework.jpa.EntitySchema;
 import org.brijframework.jpa.container.EntityDataContainer;
 import org.brijframework.jpa.container.EntityModelContainer;
 import org.brijframework.jpa.factories.EntityDataFactory;
@@ -12,6 +14,8 @@ import org.brijframework.jpa.factories.internal.JsonEntityDataFactory;
 public class EntityContext {
   
 	private Properties properties=new Properties();
+	
+	public  ConcurrentHashMap<String, EntitySchema> schemaMap = new ConcurrentHashMap<>();
 	
 	public void start() {
 		EntityModelContainer entityModelContainer=EntityModelContainer.getContainer(); 
