@@ -51,6 +51,8 @@ public class EntityMapper {
 		entityField.setId(model.getId()+"_"+field.getName());
 		entityField.setName(field.getName());
 		entityField.setModel(model);
+		Object column=colMap.remove("name");
+		colMap.put("column", column);
 		PropertyAccessorUtil.setProperties(entityField, colMap);
 		return entityField;
 	}
