@@ -10,6 +10,8 @@ import org.brijframework.jpa.factories.EntityDataFactory;
 import org.brijframework.jpa.factories.EntityModelFactory;
 import org.brijframework.jpa.factories.internal.AnnoEntityModelFactory;
 import org.brijframework.jpa.factories.internal.JsonEntityDataFactory;
+import org.brijframework.jpa.processor.EntityManager;
+import org.brijframework.jpa.processor.internal.EntityManagerImpl;
 
 public class EntityContext {
   
@@ -29,6 +31,8 @@ public class EntityContext {
 		annoEntityDataFactory.loadFactory();
 		entityModelContainer.build();
 		entityModelContainer.procced();
+		
+		
 		EntityDataContainer entityDataContainer=EntityDataContainer.getContainer();
 		entityDataContainer.setContext(this);
 		EntityDataFactory entityDataFactory=EntityDataFactory.getFactory();
@@ -39,6 +43,7 @@ public class EntityContext {
 		jsonEntityDataFactory.setContext(this);
 		jsonEntityDataFactory.setContainer(entityDataContainer);
 		jsonEntityDataFactory.loadFactory();
+		
 		entityDataContainer.build();
 		entityDataContainer.procced();
 	}

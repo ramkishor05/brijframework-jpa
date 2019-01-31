@@ -1,34 +1,28 @@
 package org.brijframework.jpa.processor;
 
-public class EntityManager<T> {
+import org.brijframework.jpa.model.EntityData;
+import org.brijframework.jpa.model.EntityModel;
 
-	public T update(T entity) {
-		return entity;
-	}
+public interface EntityManager<T> {
 
-	public T add(T entity) {
-		return entity;
-	}
+	public T update(T entity);
 
-	public T remove(T entity) {
-		return entity;
-	}
+	public T add(T entity) ;
 
-	public T get(T entity) {
-		return entity;
-	}
+	public T remove(T entity);
+
+	public T get(T entity) ;
 	
-	public boolean contains(String namedQuery) {
-		return null != null;
-	}
+	public boolean contains(String namedQuery);
 	
-	public boolean contains(T namedQuery) {
-		return null != null;
-	}
+	public boolean contains(T namedQuery);
 
+	public T getUniueObject(String namedQuery);
 
-	public T getUniueObject(String namedQuery) {
-		return null;
-	}
+	public T merge(T entity);
+
+	public Object update(EntityData entityData, EntityModel entityModel, Object entity);
+
+	public T update(EntityModel entityModel, T entity);
 
 }

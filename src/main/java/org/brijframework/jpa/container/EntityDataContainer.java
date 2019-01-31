@@ -91,17 +91,22 @@ public class EntityDataContainer {
 		});
 		return this;
 	}
-
-	public EntityDataContainer procced() {
+	
+	public EntityProcessor getEntityProcessor() {
 		EntityProcessor processor =(EntityProcessor) getContext().getObject(EntityConstants.IMPORT_ADPTER_OBJECT);
 		if(processor==null) {
 			String adpter_class=getContext().getProperty(EntityConstants.IMPORT_ADPTER_CLASS);
 			if(adpter_class==null || adpter_class.isEmpty()) {
 				System.err.println("Please config "+EntityConstants.IMPORT_ADPTER_CLASS);
-				return this;
+				return null;
 			}
 			processor=InstanceUtil.getInstance(adpter_class);
 		}
+		return processor;
+	}
+
+	public EntityDataContainer procced() {
+		EntityProcessor processor=getEntityProcessor();
 		if(processor==null) {
 			System.err.println("Invalid config "+EntityConstants.IMPORT_ADPTER_CLASS);
 			return this;
@@ -144,18 +149,7 @@ public class EntityDataContainer {
 		});
 		System.err.println("Mapping loading .....");
 		groups.forEach(group -> {
-			if(group.getEntityModel()!=null) {
-				group.getEntityModel().getRelations().forEach((key,field)->{
-					if(EntityConstants.RELATION_ONE_TO_ONE.equals(field.getRelation()) && field.getMappedBy()!=null && !field.getMappedBy().isEmpty()) {
-						Object mappedBy=PropertyAccessorUtil.getProperty(group.getEntityObject(), field.getName(), Access.PRIVATE);
-						if(mappedBy!=null) {
-							EntityDataGroup mappedDataGroup=forObject(mappedBy);
-							PropertyAccessorUtil.setProperty(mappedBy, field.getMappedBy(), Access.PRIVATE,group.getEntityObject());
-							processor.update(mappedDataGroup.getEntityData(), mappedDataGroup.getEntityModel(), mappedBy);
-						}
-					}
-				});
-			}
+			
 		});
 		processor.finish();
 		System.err.println("EntityManager entities laoded ");
