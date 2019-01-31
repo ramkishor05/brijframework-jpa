@@ -26,8 +26,8 @@ public class AnnoEntityModelFactory extends EntityModelFactory {
 	public AnnoEntityModelFactory loadFactory() {
 		System.err.println("Annotation EntityModel loading .........");
 		super.loadFactory();
-		if(ClassUtil.isClass(EntityConstants.JPA_ENTITY)) {
-			Class<? extends Annotation> entity=(Class<? extends Annotation>) ClassUtil.getClass(EntityConstants.JPA_ENTITY);
+		if(ClassUtil.isClass(EntityConstants.JPA_ENTITY_ANNOTATION)) {
+			Class<? extends Annotation> entity=(Class<? extends Annotation>) ClassUtil.getClass(EntityConstants.JPA_ENTITY_ANNOTATION);
 			for(Class<?> cls:ReflectionUtils.getClassListFromInternal()) {
 				if(cls.isAnnotationPresent(entity)) {
 					this.register(cls,entity);

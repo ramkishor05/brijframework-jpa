@@ -24,11 +24,15 @@ public class EntityModelFactory {
 	}
 
 	public void register(EntityModel model) {
-
+		this.getCache().put(model.getId(), model);
+		this.loadInContainer(model);
 	}
 
 	public EntityModel find(String model) {
-		return null;
+		if(getCache().containsKey(model)) {
+			return getCache().get(model);
+		}
+		return findInContainer(model);
 	}
 	
 	public EntityModelContainer getContainer() {
@@ -52,7 +56,7 @@ public class EntityModelFactory {
 		}
 	}
 	
-	public EntityModel loadInContainer(String model) {
+	public EntityModel findInContainer(String model) {
 		if(getContainer()==null) {
 			return null;
 		}

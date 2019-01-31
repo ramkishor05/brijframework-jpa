@@ -1,5 +1,6 @@
 package org.brijframework.jpa.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,4 +89,13 @@ public class EntityModel {
 		this.properties = properties;
 	}
 	
+	public Map<String, EntityRelation> getRelations(){
+		Map<String, EntityRelation> relation=new HashMap<>();
+		this.getProperties().forEach((key,field)->{
+			if(field instanceof EntityRelation) {
+			 relation.put(key, (EntityRelation)field);
+			}
+		});
+		return relation;
+	}
 }

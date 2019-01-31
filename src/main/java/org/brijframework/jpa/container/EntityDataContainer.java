@@ -11,9 +11,12 @@ import java.util.Map;
 import org.brijframework.jpa.builder.RelationComparator;
 import org.brijframework.jpa.builder.SequenceComparator;
 import org.brijframework.jpa.context.EntityContext;
+import org.brijframework.jpa.factories.EntityModelFactory;
 import org.brijframework.jpa.group.EntityDataGroup;
+import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityProcessor;
 import org.brijframework.jpa.util.EntityConstants;
+import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 
@@ -56,6 +59,8 @@ public class EntityDataContainer {
 	public EntityDataContainer build() {
 		getCache().forEach((id, entityGroup) -> {
 			Object entityObject = InstanceUtil.getInstance(entityGroup.getEntityData().getEntity());
+			EntityModel entityModel=EntityModelFactory.getFactory().find(entityObject.getClass().getSimpleName());
+			entityGroup.setEntityModel(entityModel);
 			entityGroup.getEntityData().getProperties().forEach((key, val) -> {
 				if (val == null) {
 					PropertyAccessorUtil.setProperty(entityObject, key, val);
@@ -106,6 +111,15 @@ public class EntityDataContainer {
 		return this;
 	}
 	
+	public EntityDataGroup forObject(Object object) {
+		for (EntityDataGroup entityDataGroup : getCache().values()) {
+			if(object.equals(entityDataGroup.getEntityObject())) {
+				return entityDataGroup;
+			}
+		}
+		return null;
+	}
+	
 	public void laodEntities(EntityProcessor processor,Collection<EntityDataGroup> groups) {
 		if (groups == null) {
 			return;
@@ -124,6 +138,23 @@ public class EntityDataContainer {
 		groups.stream().filter(group->group.getEntityData().getSequence()==null).sorted(new RelationComparator()).forEach(group -> {
 			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
 				processor.persist(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+			}else {
+				processor.update(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+			}
+		});
+		System.err.println("Mapping loading .....");
+		groups.forEach(group -> {
+			if(group.getEntityModel()!=null) {
+				group.getEntityModel().getRelations().forEach((key,field)->{
+					if(EntityConstants.RELATION_ONE_TO_ONE.equals(field.getRelation()) && field.getMappedBy()!=null && !field.getMappedBy().isEmpty()) {
+						Object mappedBy=PropertyAccessorUtil.getProperty(group.getEntityObject(), field.getName(), Access.PRIVATE);
+						if(mappedBy!=null) {
+							EntityDataGroup mappedDataGroup=forObject(mappedBy);
+							PropertyAccessorUtil.setProperty(mappedBy, field.getMappedBy(), Access.PRIVATE,group.getEntityObject());
+							processor.update(mappedDataGroup.getEntityData(), mappedDataGroup.getEntityModel(), mappedBy);
+						}
+					}
+				});
 			}
 		});
 		processor.finish();
