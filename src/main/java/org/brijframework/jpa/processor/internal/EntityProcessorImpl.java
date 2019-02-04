@@ -1,6 +1,6 @@
 package org.brijframework.jpa.processor.internal;
 
-import org.brijframework.jpa.model.EntityData;
+import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityProcessor;
 import org.brijframework.util.formatter.PrintUtil;

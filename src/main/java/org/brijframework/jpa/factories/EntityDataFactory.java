@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 
 import org.brijframework.jpa.container.EntityDataContainer;
 import org.brijframework.jpa.context.EntityContext;
+import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.group.EntityDataGroup;
-import org.brijframework.jpa.model.EntityData;
 
 public class EntityDataFactory {
 

@@ -16,7 +16,6 @@ import org.brijframework.jpa.group.EntityDataGroup;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityProcessor;
 import org.brijframework.jpa.util.EntityConstants;
-import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 
@@ -58,7 +57,7 @@ public class EntityDataContainer {
 	@SuppressWarnings("unchecked")
 	public EntityDataContainer build() {
 		getCache().forEach((id, entityGroup) -> {
-			Object entityObject = InstanceUtil.getInstance(entityGroup.getEntityData().getEntity());
+			Object entityObject = InstanceUtil.getInstance(entityGroup.getEntityData().getType());
 			EntityModel entityModel=EntityModelFactory.getFactory().find(entityObject.getClass().getSimpleName());
 			entityGroup.setEntityModel(entityModel);
 			entityGroup.getEntityData().getProperties().forEach((key, val) -> {
@@ -134,11 +133,12 @@ public class EntityDataContainer {
 		System.err.println("Sequence loading .....");
 		groups.stream().filter(group->group.getEntityData().getSequence()!=null).sorted(new SequenceComparator()).forEach(group -> {
 			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
-				processor.persist(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+				processor.persist(group.getEntityData(), group.getEntityModel(), group.getEntityObject());
 			}else {
-				processor.update(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
+				processor.update(group.getEntityData(), group.getEntityModel(), group.getEntityObject());
 			}
 		});
+		
 		System.err.println("Relational loading .....");
 		groups.stream().filter(group->group.getEntityData().getSequence()==null).sorted(new RelationComparator()).forEach(group -> {
 			if (!processor.constains(group.getEntityData(),group.getEntityModel(), group.getEntityObject())) {
@@ -147,6 +147,7 @@ public class EntityDataContainer {
 				processor.update(group.getEntityData(),group.getEntityModel(), group.getEntityObject());
 			}
 		});
+		
 		System.err.println("Mapping loading .....");
 		groups.forEach(group -> {
 			

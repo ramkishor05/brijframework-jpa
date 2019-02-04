@@ -8,10 +8,8 @@ import org.brijframework.jpa.container.EntityDataContainer;
 import org.brijframework.jpa.container.EntityModelContainer;
 import org.brijframework.jpa.factories.EntityDataFactory;
 import org.brijframework.jpa.factories.EntityModelFactory;
+import org.brijframework.jpa.factories.files.JsonDataEntityFactory;
 import org.brijframework.jpa.factories.internal.AnnoEntityModelFactory;
-import org.brijframework.jpa.factories.internal.JsonEntityDataFactory;
-import org.brijframework.jpa.processor.EntityManager;
-import org.brijframework.jpa.processor.internal.EntityManagerImpl;
 
 public class EntityContext {
   
@@ -39,7 +37,7 @@ public class EntityContext {
 		entityDataFactory.setContext(this);
 		entityDataFactory.setContainer(entityDataContainer);
 		entityDataFactory.loadFactory();
-		EntityDataFactory jsonEntityDataFactory=JsonEntityDataFactory.getFactory();
+		EntityDataFactory jsonEntityDataFactory=JsonDataEntityFactory.getFactory();
 		jsonEntityDataFactory.setContext(this);
 		jsonEntityDataFactory.setContainer(entityDataContainer);
 		jsonEntityDataFactory.loadFactory();
@@ -53,7 +51,7 @@ public class EntityContext {
 		entityDataContainer.getCache().clear();
 		EntityDataFactory entityDataFactory=EntityDataFactory.getFactory();
 		entityDataFactory.getCache().clear();
-		EntityDataFactory jsonEntityDataFactory=JsonEntityDataFactory.getFactory();
+		EntityDataFactory jsonEntityDataFactory=JsonDataEntityFactory.getFactory();
 		jsonEntityDataFactory.getCache().clear();
 	}
 	

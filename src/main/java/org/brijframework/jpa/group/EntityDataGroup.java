@@ -1,6 +1,6 @@
 package org.brijframework.jpa.group;
 
-import org.brijframework.jpa.model.EntityData;
+import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.model.EntityModel;
 
 public class EntityDataGroup {
@@ -48,7 +48,7 @@ public class EntityDataGroup {
 	@Override
 	public String toString() {
 		if(entityData!=null) {
-			return entityData.getEntity();
+			return entityData.getType();
 		}
 		return super.toString();
 	}

@@ -1,6 +1,6 @@
 package org.brijframework.jpa.processor;
 
-import org.brijframework.jpa.model.EntityData;
+import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.model.EntityModel;
 
 public interface EntityProcessor {

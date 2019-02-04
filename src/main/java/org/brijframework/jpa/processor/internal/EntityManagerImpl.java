@@ -2,8 +2,8 @@ package org.brijframework.jpa.processor.internal;
 
 import org.brijframework.jpa.container.EntityDataContainer;
 import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.group.EntityDataGroup;
-import org.brijframework.jpa.model.EntityData;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityManager;
 import org.brijframework.jpa.util.EntityConstants;
