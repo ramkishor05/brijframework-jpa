@@ -2,7 +2,7 @@ package org.brijframework.jpa.files;
 
 import java.util.Map;
 
-public class ObjectJsonData implements JsonData{
+public class ModelData implements JsonData{
 	private String id;
 	private String type;
 	private Map<String, Object> properties;

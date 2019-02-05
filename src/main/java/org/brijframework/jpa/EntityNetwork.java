@@ -61,10 +61,6 @@ public class EntityNetwork {
 		return false;
 	}
 	
-	@Override
-	public String toString() {
-		return id+"";
-	}
 	public Object uniqueID() {
 		return this.id;
 	}

@@ -1,13 +1,12 @@
 package org.brijframework.jpa.container;
 
-import static org.brijframework.jpa.util.EntityConstants.CTD;
 import static org.brijframework.jpa.util.EntityConstants.REF;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.brijframework.jpa.builder.DataBuilder;
 import org.brijframework.jpa.builder.RelationComparator;
 import org.brijframework.jpa.builder.SequenceComparator;
 import org.brijframework.jpa.context.EntityContext;
@@ -19,9 +18,9 @@ import org.brijframework.jpa.util.EntityConstants;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 
-public class EntityDataContainer {
+public final class EntityDataContainer {
 
-	private EntityContext  context;
+	private EntityContext context;
 	
 	private LinkedHashMap<String, EntityDataGroup> cache = new LinkedHashMap<>();
 	
@@ -57,21 +56,9 @@ public class EntityDataContainer {
 	@SuppressWarnings("unchecked")
 	public EntityDataContainer build() {
 		getCache().forEach((id, entityGroup) -> {
-			Object entityObject = InstanceUtil.getInstance(entityGroup.getEntityData().getType());
+			Object entityObject=DataBuilder.getDataObject(entityGroup.getEntityData());
 			EntityModel entityModel=EntityModelFactory.getFactory().find(entityObject.getClass().getSimpleName());
 			entityGroup.setEntityModel(entityModel);
-			entityGroup.getEntityData().getProperties().forEach((key, val) -> {
-				if (val == null) {
-					PropertyAccessorUtil.setProperty(entityObject, key, val);
-				} else {
-					if(CTD.equalsIgnoreCase(val.toString())) {
-						val=new Date();
-					}
-					if (!(val instanceof Map) && !(val instanceof Collection)) {
-						PropertyAccessorUtil.setProperty(entityObject, key, val);
-					}
-				}
-			});
 			entityGroup.setEntityObject(entityObject);
 		});
 		getCache().forEach((id, entityGroup) -> {

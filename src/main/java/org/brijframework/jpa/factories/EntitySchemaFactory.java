@@ -2,32 +2,33 @@ package org.brijframework.jpa.factories;
 
 import java.util.LinkedHashMap;
 
-import org.brijframework.jpa.EntityNetwork;
+import org.brijframework.jpa.EntitySchema;
 import org.brijframework.jpa.builder.DataBuilder;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.factories.files.JsonFileDataFactory;
 
-public class EntityNetworkFactory {
-	LinkedHashMap<String, EntityNetwork> cache = new LinkedHashMap<>();
+public class EntitySchemaFactory {
+	LinkedHashMap<String, EntitySchema> cache = new LinkedHashMap<>();
 	
-	private static EntityNetworkFactory factory;
+	private static EntitySchemaFactory factory;
 	
 	private EntityContext entityContext;
 	
-	public static EntityNetworkFactory getFactory() {
+	public static EntitySchemaFactory getFactory() {
 		if (factory == null) {
-			factory = new EntityNetworkFactory();
+			factory = new EntitySchemaFactory();
 			factory.loadFactory();
 		}
 		return factory;
 	}
 	
 	public void loadFactory() {
-		JsonFileDataFactory.getFactory().forType(EntityNetwork.class.getName(), network->{
+		JsonFileDataFactory.getFactory().forType(EntitySchema.class.getName(), schema->{
 			try {
-				EntityNetwork networkModel=DataBuilder.getDataObject(network);
-				register(networkModel);
+				EntitySchema schemaModel=DataBuilder.getDataObject(schema);
+				register(schemaModel);
 			}catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
@@ -41,15 +42,15 @@ public class EntityNetworkFactory {
 	}
 
 	
-	public void register(EntityNetwork model) {
+	public void register(EntitySchema model) {
 		getCache().put(model.getId(), model);
 	}
 	
-	public EntityNetwork find(String key) {
+	public EntitySchema find(String key) {
 		return getCache().get(key);
 	}
 	
-	public LinkedHashMap<String, EntityNetwork> getCache() {
+	public LinkedHashMap<String, EntitySchema> getCache() {
 		return cache;
 	}
 }

@@ -1,6 +1,6 @@
 package org.brijframework.jpa.files;
 
-public class EntityData extends ObjectJsonData{
+public class EntityData extends ModelData{
 
 	private Integer sequence;
 	private String unique;

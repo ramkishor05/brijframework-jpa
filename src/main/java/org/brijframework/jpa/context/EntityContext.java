@@ -17,6 +17,10 @@ public class EntityContext {
 	
 	public  ConcurrentHashMap<String, EntitySchema> schemaMap = new ConcurrentHashMap<>();
 	
+	public  ConcurrentHashMap<String, Class<?>> adpterMap = new ConcurrentHashMap<>();
+	
+	
+	
 	public void start() {
 		EntityModelContainer entityModelContainer=EntityModelContainer.getContainer(); 
 		entityModelContainer.setContext(this);
@@ -71,4 +75,15 @@ public class EntityContext {
 		return properties.getProperty(key);
 	}
 	
+	public void setAdpter(String key, Class<?> adpter) {
+		adpterMap.put(key, adpter);
+	}
+	
+	public Class<?> getAdpter(String key) {
+		return adpterMap.get(key);
+	}
+
+	public ConcurrentHashMap<String, Class<?>> getAdpterMap() {
+		return adpterMap;
+	}
 }
