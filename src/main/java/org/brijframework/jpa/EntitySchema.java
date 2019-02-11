@@ -17,8 +17,16 @@ public class EntitySchema {
 	public String packages;
 
 	public EntityDatabase database;
+	
+	public EntityProvider provider;
 
 	public String persistenceUnit;
+	
+	public int initialPoolSize = 1; 
+	public int maxPoolSize = 4; 
+	public int maxIdlePoolSize = 2; 
+	public int minIdlePoolSize = 1; 
+	public long timeBetweenEvictionRunsMillis = 60000;
 
 	public List<Class<?>> entities = new ArrayList<>();
 
@@ -84,6 +92,46 @@ public class EntitySchema {
 
 	public void setEntities(List<Class<?>> entities) {
 		this.entities = entities;
+	}
+	
+	public int getInitialPoolSize() {
+		return initialPoolSize;
+	}
+
+	public void setInitialPoolSize(int initialPoolSize) {
+		this.initialPoolSize = initialPoolSize;
+	}
+
+	public int getMaxPoolSize() {
+		return maxPoolSize;
+	}
+
+	public void setMaxPoolSize(int maxPoolSize) {
+		this.maxPoolSize = maxPoolSize;
+	}
+
+	public int getMaxIdlePoolSize() {
+		return maxIdlePoolSize;
+	}
+
+	public void setMaxIdlePoolSize(int maxIdlePoolSize) {
+		this.maxIdlePoolSize = maxIdlePoolSize;
+	}
+
+	public int getMinIdlePoolSize() {
+		return minIdlePoolSize;
+	}
+
+	public void setMinIdlePoolSize(int minIdlePoolSize) {
+		this.minIdlePoolSize = minIdlePoolSize;
+	}
+
+	public long getTimeBetweenEvictionRunsMillis() {
+		return timeBetweenEvictionRunsMillis;
+	}
+
+	public void setTimeBetweenEvictionRunsMillis(long timeBetweenEvictionRunsMillis) {
+		this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
 	}
 
 	public String getConnectionURL() {

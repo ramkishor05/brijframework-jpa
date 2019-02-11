@@ -10,11 +10,8 @@ import java.util.function.Consumer;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.files.ModelData;
-import org.brijframework.support.enums.Access;
-import org.brijframework.util.WatchConfig;
 import org.brijframework.util.WatchFactory;
-import org.brijframework.util.reflect.MethodUtil;
-import org.brijframework.util.runtime.WatchUtil;
+import org.brijframework.util.formatter.PrintUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -37,15 +34,11 @@ public class JsonFileDataFactory {
 	public JsonFileDataFactory load(File file) {
 		System.err.println("JsonFileDataFactory loading start...");
 		loadDir(file);
-		if(WatchFactory.getFactory().fetch(file)==null) {
-			WatchConfig config=new WatchConfig();
-			config.setFile(file);
-			config.setMethod(MethodUtil.findMethod(JsonFileDataFactory.class, "loadFile", Access.PRIVATE, config.getFile().getClass()));
-			config.setObject(this);
-			config.setParameters(config.getFile());
-			WatchFactory.getFactory().register(config);
-		}
 		System.err.println("JsonFileDataFactory loading done...");
+		File dir=file.isDirectory()? file: file.getParentFile();
+		if(WatchFactory.getFactory().fetch(dir)==null) {
+			WatchFactory.getFactory().register(dir,this,"loadFile");
+		}
 		return this;
 	}
 	
@@ -64,7 +57,7 @@ public class JsonFileDataFactory {
 		try (FileInputStream reader = new FileInputStream(file)) {
 			List<ModelData> lst = mapper.readValue(reader, TypeFactory.defaultInstance().constructCollectionLikeType(List.class, ModelData.class));
 			lst.forEach(fileObject -> {
-				System.err.println("Register fileObject :"+fileObject.getId());
+				System.err.println("Register fileObject :"+PrintUtil.getObjectInfo(fileObject));
 				register(fileObject);
 			});
 		} catch (IOException e) {
