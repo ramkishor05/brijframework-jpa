@@ -5,6 +5,7 @@ public final class EntityConstants {
 	public final static String REF = "@ref";
 	public final static String CTD="@currentDate";
 	public static String IMPORT_CONFIG_PATH = "jpa.configration.path";
+	public static String IMPORT_PROPERTIES_MAPPER = "jpa.properties.mapper";
 	public static String IMPORT_PROPERTIES_STATEMENT = "jpa.properties.statement";
 	public static String IMPORT_PACKAGES = "jpa.properties.packages";
 	public static String IMPORT_FILES = "jpa.properties.import_files";

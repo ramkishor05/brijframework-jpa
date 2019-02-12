@@ -15,34 +15,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-public class EntityParameterFactory {
-	private static EntityParameterFactory factory;
+public class EntityMapperFactory {
+	private static EntityMapperFactory factory;
 
-	private LinkedHashMap<Object, Map<String,Object>> cache = new LinkedHashMap<>();
+	private LinkedHashMap<String, Map<String,String>> cache = new LinkedHashMap<>();
 
 	private EntityModelContainer container;
 
 	private EntityContext entityContext;
 
-	public static EntityParameterFactory getFactory() {
+	public static EntityMapperFactory getFactory() {
 		if (factory == null) {
-			factory = new EntityParameterFactory();
+			factory = new EntityMapperFactory();
 		}
 		return factory;
 	}
 
 	public void loadFactory() {
-		String statement = getEntityContext().getProperty(EntityConstants.IMPORT_PROPERTIES_STATEMENT);
-		if (statement == null) {
-			System.err.println("statement config not found : " + EntityConstants.IMPORT_PROPERTIES_STATEMENT);
+		String mapper = getEntityContext().getProperty(EntityConstants.IMPORT_PROPERTIES_MAPPER);
+		if (mapper == null) {
+			System.err.println("mapper config not found : " + EntityConstants.IMPORT_PROPERTIES_MAPPER);
 			return;
 		}
-		File statementPath = new File(statement);
-		if (!statementPath.exists()) {
-			System.err.println("statement path not found : " + statementPath);
+		File mapperPath = new File(mapper);
+		if (!mapperPath.exists()) {
+			System.err.println("mapper path not found : " + mapperPath);
 			return;
 		}
-		loadDir(statementPath);
+		loadDir(mapperPath);
 	}
 
 	public void loadDir(File file) {
@@ -62,8 +62,8 @@ public class EntityParameterFactory {
 		try (InputStream src = new FileInputStream(file)) {
 			ObjectMapper mapper=new ObjectMapper();
 			MapLikeType typeRef =TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, HashMap.class);
-			Map<Object, Map<String,Object>> properties=mapper.readValue(src, typeRef);
-			cache.putAll(properties);
+			Map<String, Map<String,String>> properties=mapper.readValue(src, typeRef);
+			getCache().putAll(properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,11 +85,11 @@ public class EntityParameterFactory {
 		return container;
 	}
 
-	public LinkedHashMap<Object, Map<String,Object>> getCache() {
+	public LinkedHashMap<String, Map<String,String>> getCache() {
 		return cache;
 	}
 
-	public Map<String, Object> find(String key) {
+	public Map<String, String> find(String key) {
 		return getCache().get(key);
 	}
 }

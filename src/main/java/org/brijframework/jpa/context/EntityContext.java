@@ -8,8 +8,9 @@ import org.brijframework.jpa.container.EntityDataContainer;
 import org.brijframework.jpa.container.EntityModelContainer;
 import org.brijframework.jpa.factories.EntityConfigFactory;
 import org.brijframework.jpa.factories.EntityDataFactory;
+import org.brijframework.jpa.factories.EntityMapperFactory;
 import org.brijframework.jpa.factories.EntityModelFactory;
-import org.brijframework.jpa.factories.EntityParameterFactory;
+import org.brijframework.jpa.factories.EntityQueryFactory;
 import org.brijframework.jpa.factories.EntityPropertiesFactory;
 import org.brijframework.jpa.factories.files.JsonDataEntityFactory;
 import org.brijframework.jpa.factories.internal.AnnoEntityModelFactory;
@@ -32,7 +33,11 @@ public class EntityContext {
 		propertiesFactory.setEntityContext(this);
 		propertiesFactory.loadFactory();
 		
-		EntityParameterFactory parameterFactory=EntityParameterFactory.getFactory();
+		EntityMapperFactory mapperFactory=EntityMapperFactory.getFactory();
+		mapperFactory.setEntityContext(this);
+		mapperFactory.loadFactory();
+		
+		EntityQueryFactory parameterFactory=EntityQueryFactory.getFactory();
 		parameterFactory.setEntityContext(this);
 		parameterFactory.loadFactory();
 		
