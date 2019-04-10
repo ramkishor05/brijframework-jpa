@@ -2,9 +2,9 @@ package org.brijframework.jpa.factories.internal;
 
 import java.io.File;
 
-import org.brijframework.jpa.builder.DataBuilder;
 import org.brijframework.jpa.factories.EntityConfigFactory;
 import org.brijframework.jpa.factories.files.JsonFileDataFactory;
+import org.brijframework.jpa.util.EntityDataBuilder;
 import org.brijframework.jpa.util.EntityConstants;
 
 public class EntityConfigFactoryImpl extends EntityConfigFactory{
@@ -35,7 +35,7 @@ public class EntityConfigFactoryImpl extends EntityConfigFactory{
 		cfg.load(config_path);
 		JsonFileDataFactory.getFactory().getCache().forEach((id, configData)->{
 			try {
-				Object configModel=DataBuilder.getDataObject(configData);
+				Object configModel=EntityDataBuilder.getDataObject(configData);
 				this.register(id,configModel);
 			}catch (Exception e) {
 			}

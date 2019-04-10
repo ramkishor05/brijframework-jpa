@@ -2,8 +2,10 @@ package org.brijframework.jpa.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.brijframework.jpa.model.EntityField;
@@ -18,6 +20,28 @@ import org.brijframework.util.reflect.ReflectionUtils;
 
 public class EntityMapper {
 
+
+	public static  List<Map<String, Object>> listMapper(List<Map<String, Object>> list, Map<String, String> mapper) {
+		List<Map<String, Object>> listMapper = new ArrayList<>();
+		for (Map<String, Object> map : list) {
+			listMapper.add(getMapped(map, mapper));
+		}
+		return listMapper;
+	}
+
+	public static  Map<String, Object> getMapped(Map<String, Object> row, Map<String, String> mapper) {
+		Map<String, Object> rowMap = new HashMap<>();
+		row.forEach((key, value) -> {
+			String mapKey = mapper.get(key);
+			if (mapKey != null) {
+				rowMap.put(mapKey, value);
+			} else {
+				rowMap.put(key, value);
+			}
+		});
+		return rowMap;
+	}
+	
 	public static EntityModel getEntityModel(Class<?> cls,Class<? extends Annotation> entity) {
 		EntityModel model=new EntityModel();
 		Map<String, Object> entityMap=getEntityMap(cls);

@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.brijframework.jpa.builder.DataBuilder;
 import org.brijframework.jpa.builder.RelationComparator;
 import org.brijframework.jpa.builder.SequenceComparator;
 import org.brijframework.jpa.context.EntityContext;
@@ -14,6 +13,7 @@ import org.brijframework.jpa.factories.EntityModelFactory;
 import org.brijframework.jpa.group.EntityDataGroup;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityProcessor;
+import org.brijframework.jpa.util.EntityDataBuilder;
 import org.brijframework.jpa.util.EntityConstants;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
@@ -56,7 +56,7 @@ public final class EntityDataContainer {
 	@SuppressWarnings("unchecked")
 	public EntityDataContainer build() {
 		getCache().forEach((id, entityGroup) -> {
-			Object entityObject=DataBuilder.getDataObject(entityGroup.getEntityData());
+			Object entityObject=EntityDataBuilder.getDataObject(entityGroup.getEntityData());
 			EntityModel entityModel=EntityModelFactory.getFactory().find(entityObject.getClass().getSimpleName());
 			entityGroup.setEntityModel(entityModel);
 			entityGroup.setEntityObject(entityObject);
