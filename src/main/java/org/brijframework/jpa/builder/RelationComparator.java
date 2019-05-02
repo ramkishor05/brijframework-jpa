@@ -5,9 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.brijframework.jpa.group.EntityDataGroup;
-import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.FieldUtil;
+import org.brijframework.util.support.Access;
 
 public class RelationComparator implements Comparator<EntityDataGroup>{
 

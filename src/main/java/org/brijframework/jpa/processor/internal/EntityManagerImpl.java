@@ -7,8 +7,8 @@ import org.brijframework.jpa.group.EntityDataGroup;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityManager;
 import org.brijframework.jpa.util.EntityConstants;
-import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
+import org.brijframework.util.support.Access;
 
 public class EntityManagerImpl<T>  implements EntityManager<T>{
 	private EntityModelContainer entityModelContainer=EntityModelContainer.getContainer();

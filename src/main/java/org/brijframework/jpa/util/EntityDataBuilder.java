@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.brijframework.jpa.files.ModelData;
-import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.MetaAccessorUtil;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
+import org.brijframework.util.support.Access;
 
 public class EntityDataBuilder {
 

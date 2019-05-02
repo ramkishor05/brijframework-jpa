@@ -11,12 +11,12 @@ import java.util.Map;
 import org.brijframework.jpa.model.EntityField;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.model.EntityRelation;
-import org.brijframework.support.enums.Access;
 import org.brijframework.util.accessor.PropertyAccessorUtil;
 import org.brijframework.util.reflect.AnnotationUtil;
 import org.brijframework.util.reflect.ClassUtil;
 import org.brijframework.util.reflect.FieldUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
+import org.brijframework.util.support.Access;
 
 public class EntityMapper {
 
