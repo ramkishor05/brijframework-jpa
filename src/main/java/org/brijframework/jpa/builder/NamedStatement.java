@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  *
- * @author Silence
+ * @author Ram Kishor
  */
 public class NamedStatement implements PreparedStatement{
     /** The statement this object is wrapping. */
