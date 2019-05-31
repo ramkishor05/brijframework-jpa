@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Properties;
 
-import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.container.EntityMetaContainer;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.util.EntityConstants;
 
@@ -15,7 +15,7 @@ public class EntityPropertiesFactory {
 	
 	private LinkedHashMap<Object,Object> cache = new LinkedHashMap<>();
 	
-	private EntityModelContainer container ;
+	private EntityMetaContainer container ;
 
 	private EntityContext entityContext;
 
@@ -25,7 +25,6 @@ public class EntityPropertiesFactory {
 		}
 		return factory;
 	}
-	
 
 	public void loadFactory() {
 		String statement=getEntityContext().getProperty(EntityConstants.IMPORT_PROPERTIES_STATEMENT);
@@ -72,11 +71,11 @@ public class EntityPropertiesFactory {
 		return entityContext;
 	}
 	
-	public void setContainer(EntityModelContainer container) {
+	public void setContainer(EntityMetaContainer container) {
 		this.container = container;
 	}
 	
-	public EntityModelContainer getContainer() {
+	public EntityMetaContainer getContainer() {
 		return container;
 	}
 	

@@ -5,16 +5,16 @@ import java.util.LinkedHashMap;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.model.EntityModel;
 
-public class EntityModelContainer {
+public class EntityMetaContainer {
 	private EntityContext  context;
 	
 	private LinkedHashMap<String, EntityModel> cache = new LinkedHashMap<>();
 	
-	private static EntityModelContainer container;
+	private static EntityMetaContainer container;
 	
-	public static EntityModelContainer getContainer() {
+	public static EntityMetaContainer getContainer() {
 		if(container==null) {
-			container=new EntityModelContainer();
+			container=new EntityMetaContainer();
 		}
 		return container;
 	}

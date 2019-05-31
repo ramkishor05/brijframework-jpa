@@ -8,7 +8,7 @@ public final class EntityConstants {
 	public static String IMPORT_PROPERTIES_MAPPER = "jpa.properties.mapper";
 	public static String IMPORT_PROPERTIES_STATEMENT = "jpa.properties.statement";
 	public static String IMPORT_PACKAGES = "jpa.properties.packages";
-	public static String IMPORT_FILES = "jpa.properties.import_files";
+	public static String IMPORT_IMPORT_FILES = "jpa.properties.import_files";
 	public static String IMPORT_ADPTER_CLASS = "jpa.properties.import_adpter_class";
 	public static String IMPORT_ADPTER_OBJECT = "jpa.properties.import_adpter_object";
 	

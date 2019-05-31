@@ -2,23 +2,23 @@ package org.brijframework.jpa.factories;
 
 import java.util.LinkedHashMap;
 
-import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.container.EntityMetaContainer;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.model.EntityModel;
 
-public class EntityModelFactory {
+public class EntityMetaFactory {
 
-	private static EntityModelFactory factory;
+	private static EntityMetaFactory factory;
 	
 	private LinkedHashMap<String, EntityModel> cache = new LinkedHashMap<>();
 	
-	private EntityModelContainer container ;
+	private EntityMetaContainer container ;
 
 	private EntityContext entityContext;
 
-	public static EntityModelFactory getFactory() {
+	public static EntityMetaFactory getFactory() {
 		if (factory == null) {
-			factory = new EntityModelFactory();
+			factory = new EntityMetaFactory();
 		}
 		return factory;
 	}
@@ -35,14 +35,14 @@ public class EntityModelFactory {
 		return findInContainer(model);
 	}
 	
-	public EntityModelContainer getContainer() {
+	public EntityMetaContainer getContainer() {
 		return container;
 	}
-	public void setContainer(EntityModelContainer container) {
+	public void setContainer(EntityMetaContainer container) {
 		this.container = container;
 	}
 	
-	public EntityModelFactory loadFactory() {
+	public EntityMetaFactory loadFactory() {
 		return this;
 	}
 

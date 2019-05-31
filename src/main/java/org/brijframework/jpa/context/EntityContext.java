@@ -5,14 +5,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.brijframework.jpa.EntitySchema;
 import org.brijframework.jpa.container.EntityDataContainer;
-import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.container.EntityMetaContainer;
 import org.brijframework.jpa.factories.EntityConfigFactory;
-import org.brijframework.jpa.factories.EntityDataFactory;
 import org.brijframework.jpa.factories.EntityMapperFactory;
-import org.brijframework.jpa.factories.EntityModelFactory;
-import org.brijframework.jpa.factories.EntityQueryFactory;
+import org.brijframework.jpa.factories.EntityMetaFactory;
 import org.brijframework.jpa.factories.EntityPropertiesFactory;
-import org.brijframework.jpa.factories.files.JsonDataEntityFactory;
+import org.brijframework.jpa.factories.EntityQueryFactory;
+import org.brijframework.jpa.factories.data.EntityDataFactory;
+import org.brijframework.jpa.factories.data.json.JsonEntityDataFactory;
 import org.brijframework.jpa.factories.internal.AnnoEntityModelFactory;
 import org.brijframework.jpa.factories.internal.EntityConfigFactoryImpl;
 
@@ -41,14 +41,14 @@ public class EntityContext {
 		parameterFactory.setEntityContext(this);
 		parameterFactory.loadFactory();
 		
-		EntityModelContainer entityModelContainer=EntityModelContainer.getContainer(); 
+		EntityMetaContainer entityModelContainer=EntityMetaContainer.getContainer(); 
 		entityModelContainer.setContext(this);
 		
-		EntityModelFactory entityModelFactory=EntityModelFactory.getFactory();
+		EntityMetaFactory entityModelFactory=EntityMetaFactory.getFactory();
 		entityModelFactory.setContainer(entityModelContainer);
 		entityModelFactory.loadFactory();
 		
-		EntityModelFactory annoEntityDataFactory=AnnoEntityModelFactory.getFactory();
+		EntityMetaFactory annoEntityDataFactory=AnnoEntityModelFactory.getFactory();
 		annoEntityDataFactory.setContext(this);
 		annoEntityDataFactory.setContainer(entityModelContainer);
 		annoEntityDataFactory.loadFactory();
@@ -64,7 +64,7 @@ public class EntityContext {
 		entityDataFactory.setContainer(entityDataContainer);
 		entityDataFactory.loadFactory();
 		
-		EntityDataFactory jsonEntityDataFactory=JsonDataEntityFactory.getFactory();
+		EntityDataFactory jsonEntityDataFactory=JsonEntityDataFactory.getFactory();
 		jsonEntityDataFactory.setContext(this);
 		jsonEntityDataFactory.setContainer(entityDataContainer);
 		jsonEntityDataFactory.loadFactory();
@@ -80,7 +80,7 @@ public class EntityContext {
 		EntityDataFactory entityDataFactory=EntityDataFactory.getFactory();
 		entityDataFactory.getCache().clear();
 		
-		EntityDataFactory jsonEntityDataFactory=JsonDataEntityFactory.getFactory();
+		EntityDataFactory jsonEntityDataFactory=JsonEntityDataFactory.getFactory();
 		jsonEntityDataFactory.getCache().clear();
 	}
 	

@@ -1,4 +1,4 @@
-package org.brijframework.jpa.factories;
+package org.brijframework.jpa.factories.data;
 
 import java.util.LinkedHashMap;
 

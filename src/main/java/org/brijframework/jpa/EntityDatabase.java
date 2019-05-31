@@ -124,5 +124,4 @@ public class EntityDatabase {
 	public void setSchemas(List<EntitySchema> schemas) {
 		this.schemas = schemas;
 	}
-	
 }

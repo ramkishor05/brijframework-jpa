@@ -94,7 +94,6 @@ public class JsonFileDataFactory {
 	}
 
 	public void setAdpter(String string, Class<EntityData> class1) {
-		// TODO Auto-generated method stub
 		
 	}
 }

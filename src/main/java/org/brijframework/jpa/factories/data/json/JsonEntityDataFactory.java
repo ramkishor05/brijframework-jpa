@@ -1,4 +1,4 @@
-package org.brijframework.jpa.factories.files;
+package org.brijframework.jpa.factories.data.json;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,27 +6,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.brijframework.jpa.factories.EntityDataFactory;
+import org.brijframework.jpa.factories.data.EntityDataFactory;
 import org.brijframework.jpa.files.EntityData;
 import org.brijframework.jpa.util.EntityConstants;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonDataEntityFactory extends EntityDataFactory{
+public class JsonEntityDataFactory extends EntityDataFactory{
 	
-	private static JsonDataEntityFactory factory;
+	private static JsonEntityDataFactory factory;
 
-	public static JsonDataEntityFactory getFactory() {
+	public static JsonEntityDataFactory getFactory() {
 		if (factory == null) {
-			factory = new JsonDataEntityFactory();
+			factory = new JsonEntityDataFactory();
 		}
 		return factory;
 	}
 	
 	@Override
-	public JsonDataEntityFactory loadFactory() {
-		String fileNames=getContext().getProperty(EntityConstants.IMPORT_FILES);
+	public JsonEntityDataFactory loadFactory() {
+		String fileNames=getContext().getProperty(EntityConstants.IMPORT_IMPORT_FILES);
 		if(fileNames==null || fileNames.isEmpty()) {
 			return this;
 		}
@@ -55,7 +55,7 @@ public class JsonDataEntityFactory extends EntityDataFactory{
 		}
 	}
 	
-	public JsonDataEntityFactory loadEntities(File file) {
+	public JsonEntityDataFactory loadEntities(File file) {
 		ObjectMapper mapper = new ObjectMapper();
 		try (FileInputStream reader = new FileInputStream(file)) {
 			List<EntityData> lst = mapper.readValue(reader, new TypeReference<List<EntityData>>() {});

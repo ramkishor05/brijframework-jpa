@@ -2,7 +2,7 @@ package org.brijframework.jpa.factories.internal;
 
 import java.lang.annotation.Annotation;
 
-import org.brijframework.jpa.factories.EntityModelFactory;
+import org.brijframework.jpa.factories.EntityMetaFactory;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.util.EntityConstants;
 import org.brijframework.jpa.util.EntityMapper;
@@ -10,7 +10,7 @@ import org.brijframework.util.formatter.PrintUtil;
 import org.brijframework.util.reflect.ClassUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
-public class AnnoEntityModelFactory extends EntityModelFactory {
+public class AnnoEntityModelFactory extends EntityMetaFactory {
 
 	private static AnnoEntityModelFactory factory;
 

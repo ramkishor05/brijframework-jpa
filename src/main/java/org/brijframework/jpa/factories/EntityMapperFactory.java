@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.brijframework.jpa.container.EntityModelContainer;
+import org.brijframework.jpa.container.EntityMetaContainer;
 import org.brijframework.jpa.context.EntityContext;
 import org.brijframework.jpa.util.EntityConstants;
 
@@ -20,7 +20,7 @@ public class EntityMapperFactory {
 
 	private LinkedHashMap<String, Map<String,String>> cache = new LinkedHashMap<>();
 
-	private EntityModelContainer container;
+	private EntityMetaContainer container;
 
 	private EntityContext entityContext;
 
@@ -77,11 +77,11 @@ public class EntityMapperFactory {
 		return entityContext;
 	}
 
-	public void setContainer(EntityModelContainer container) {
+	public void setContainer(EntityMetaContainer container) {
 		this.container = container;
 	}
 
-	public EntityModelContainer getContainer() {
+	public EntityMetaContainer getContainer() {
 		return container;
 	}
 

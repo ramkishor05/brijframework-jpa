@@ -9,7 +9,7 @@ import java.util.Map;
 import org.brijframework.jpa.builder.RelationComparator;
 import org.brijframework.jpa.builder.SequenceComparator;
 import org.brijframework.jpa.context.EntityContext;
-import org.brijframework.jpa.factories.EntityModelFactory;
+import org.brijframework.jpa.factories.EntityMetaFactory;
 import org.brijframework.jpa.group.EntityDataGroup;
 import org.brijframework.jpa.model.EntityModel;
 import org.brijframework.jpa.processor.EntityProcessor;
@@ -57,7 +57,7 @@ public final class EntityDataContainer {
 	public EntityDataContainer build() {
 		getCache().forEach((id, entityGroup) -> {
 			Object entityObject=EntityDataBuilder.getDataObject(entityGroup.getEntityData());
-			EntityModel entityModel=EntityModelFactory.getFactory().find(entityObject.getClass().getSimpleName());
+			EntityModel entityModel=EntityMetaFactory.getFactory().find(entityObject.getClass().getSimpleName());
 			entityGroup.setEntityModel(entityModel);
 			entityGroup.setEntityObject(entityObject);
 		});
