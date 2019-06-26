@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.brijframework</groupId>
-	<artifactId>org.brijframework-jpa</artifactId>
+	<artifactId>brijframework-jpa</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
@@ -33,7 +33,7 @@
 
 		<dependency>
 			<groupId>org.brijframework</groupId>
-			<artifactId>org.brijframework-util</artifactId>
+			<artifactId>brijframework-util</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
