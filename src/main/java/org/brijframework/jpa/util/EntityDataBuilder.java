@@ -39,7 +39,7 @@ public class EntityDataBuilder {
 		T entity = (T) InstanceUtil.getInstance(cls);
 		Set<String> unmapped = new HashSet<>();
 		rowMap.forEach((key, value) -> {
-			Field colling = MetaAccessorUtil.getFieldMeta(entity.getClass(), key, Access.PRIVATE);
+			Field colling = MetaAccessorUtil.findFieldMeta(entity.getClass(), key, Access.PRIVATE);
 			if (colling != null) {
 				if (ReflectionUtils.isProjectClass(colling.getType())) {
 
